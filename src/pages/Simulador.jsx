@@ -70,26 +70,51 @@ const Simulador = () => {
 
   // Función para manejar el envío del formulario
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const regex = /^-?\d*(\.\d*)?$/;
-    const todosValidos = [
-      ...formData.funcionObjetivo,
-      ...formData.resultados,
-      ...formData.restricciones.flat()
-    ].every(val => val === "" || regex.test(val));
+  const regex = /^-?\d*(\.\d*)?$/;
 
-    if (!todosValidos) {
-      alert("⚠️ Verifica que todos los campos contengan solo números. \n ⚠️ Recuerda usar '.' para los numeros con sus decimales.");
-      return;
-    }
+  const todosValidos = [
+    ...formData.funcionObjetivo,
+    ...formData.resultados,
+    ...formData.restricciones.flat()
+  ].every(val => val === "" || regex.test(val));
 
-    // Procesar y pasar los datos al paso a paso
-    navigate("/paso-a-paso", {
-      state: { variables, restricciones, funcionObjetivo: formData.funcionObjetivo, restriccionesData: formData.restricciones, resultados: formData.resultados },
-    });
-  };
+  if (!todosValidos) {
+    alert("⚠️ Verifica que todos los campos contengan solo números. \n⚠️ Recuerda usar '.' para los números con decimales.");
+    return;
+  }
 
+  // Validar función objetivo
+  const objetivoValido = formData.funcionObjetivo.some(val => val !== "" && parseFloat(val) !== 0);
+  if (!objetivoValido) {
+    alert("⚠️ Debes ingresar al menos un coeficiente distinto de cero en la función objetivo.");
+    return;
+  }
+
+  // Validar que ninguna restricción esté vacía
+  const restriccionInvalida = formData.restricciones.some((fila, index) => {
+    const coeficientesValidos = fila.some(val => val !== "" && parseFloat(val) !== 0);
+    const resultadoValido = formData.resultados[index] !== "" && !isNaN(parseFloat(formData.resultados[index]));
+    return !coeficientesValidos || !resultadoValido;
+  });
+
+  if (restriccionInvalida) {
+    alert("⚠️ Cada restricción debe tener al menos un coeficiente distinto de cero y un resultado numérico.");
+    return;
+  }
+
+  // Si todo está bien, navegar
+  navigate("/paso-a-paso", {
+    state: {
+      variables,
+      restricciones,
+      funcionObjetivo: formData.funcionObjetivo,
+      restriccionesData: formData.restricciones,
+      resultados: formData.resultados,
+    },
+  });
+};
   return (
   <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-6 py-12">
     <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-4">
