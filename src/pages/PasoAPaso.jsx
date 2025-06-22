@@ -72,7 +72,7 @@ const PasoAPaso = () => {
         break;
       }
 
-      const nombreCol = vx[indiceColPivote - 1];
+      const nombreCol = vx[indiceColPivote - 1]; //se obtiene nombre
 
       let mejorRatio = Infinity;
       let indiceFilaPivote = -1;
@@ -92,7 +92,7 @@ const PasoAPaso = () => {
       if (indiceFilaPivote === -1) break;
 
       const nombreFila = nombresFilasActuales[indiceFilaPivote];
-      nombresFilasActuales[indiceFilaPivote] = nombreCol;
+      nombresFilasActuales[indiceFilaPivote] = nombreCol; //sustituye nombre
 
       const filaPivoteOriginal = tablaLocal[indiceFilaPivote];
       const valorPivote = filaPivoteOriginal[indiceColPivote];
@@ -103,7 +103,7 @@ const PasoAPaso = () => {
       const nuevaTabla = tablaLocal.map((fila, idx) => {
         if (idx === indiceFilaPivote) return nuevaFilaPivote;
         const coef = fila[indiceColPivote];
-        return fila.map((celda, j) => celda - coef * nuevaFilaPivote[j]);
+        return fila.map((celda, j) => celda - coef * nuevaFilaPivote[j]); // formula gausiana
       });
 
       const iteracion = {
@@ -207,7 +207,7 @@ const PasoAPaso = () => {
                 Iteración {it.numero}
               </h2>
 
-              {/* Tabla de iteración centrada */}
+              {/*Tabla de iteración centrada*/}
               <div className="overflow-x-auto w-full px-2">
                 <div className="w-max mx-auto">
                   <table className="min-w-max table-auto border-collapse bg-white rounded-xl shadow-md">
