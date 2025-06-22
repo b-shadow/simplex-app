@@ -34,7 +34,8 @@ const Inicio = () => {
         transition={{ delay: 0.4, duration: 0.8 }}
       >
         <p className="text-gray-800 text-lg md:text-xl font-medium text-center">
-          Simulador visual paso a paso para resolver problemas de programación lineal con animaciones y claridad.
+          Simulador visual paso a paso para resolver problemas de programación
+          lineal con animaciones y claridad.
         </p>
       </motion.div>
 
@@ -44,7 +45,8 @@ const Inicio = () => {
         <div className="relative flex flex-col items-center justify-center mb-12">
           {hablando && (
             <motion.div
-  className="absolute -top-24 bg-white border border-gray-300 px-4 py-2 rounded-xl shadow-md text-base text-gray-800 z-10 w-64 text-center"              initial={{ opacity: 0, scale: 0.9 }}
+              className="absolute -top-24 bg-white border border-gray-300 px-4 py-2 rounded-xl shadow-md text-base text-gray-800 z-10 w-64 text-center"
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
@@ -81,7 +83,11 @@ const Inicio = () => {
         </div>
 
         {/* Botón */}
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="mb-10">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="mb-10"
+        >
           <Link
             to="/configurar"
             className="text-lg bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full shadow-lg transition duration-300"
